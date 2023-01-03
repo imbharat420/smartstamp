@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
+use App\Http\Requests\StoreUserRequest;
 
 class AuthController extends Controller
 {
@@ -11,15 +12,10 @@ class AuthController extends Controller
 
     public function login(){
         return response()->json("This is Login function");
-    }
+    } 
     
-    public function register(){
-        $request->-validate)'all';_
-        validate([
-            "name"=>["required","string","max:255"],
-            "email"=>["required","string","email","max:255","unique:users"],
-            "password"=>["required","confirm",Ruleset::password :],
-        ]);
+    public function register(StoreUserRequest $request){
+        
         return response()->json("This is register function");
     }
 

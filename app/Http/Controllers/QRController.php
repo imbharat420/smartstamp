@@ -13,7 +13,7 @@ class QRController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(["message"=>"Hello World"],200);
     }
 
     /**

@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('qrs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->string('description');
+            $table->string('location');
+            $table->string('image');
+            $table->boolean('is_lost')->default('false');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

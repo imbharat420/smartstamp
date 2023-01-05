@@ -13,7 +13,7 @@ class StoreQrRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,12 +24,12 @@ class StoreQrRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'url' => 'required',
-            'user_id' => 'required',
-            'qr_code' => 'required',
-            'image' => 'required',
+            'name' => ['required', 'string', 'max:255','min:3'],
+            'description' => ['required', 'string', 'max:255','min:50'],
+            'url' => ['required', 'string', 'max:255'],
+            'qr_code' => ['required', 'string', 'max:500'],
+            'image' => ['required', 'file'],
+            'location' => ['required', 'string', 'max:255'],
         ];
     }
 }

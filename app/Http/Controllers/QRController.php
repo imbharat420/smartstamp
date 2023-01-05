@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQrRequest;
 use Illuminate\Http\Request;
 use App\Models\Qr;
 use App\Http\Resources\QrResource;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class QrController extends Controller
 {
@@ -37,9 +39,22 @@ class QrController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQrRequest $request)
     {
-        return "store";
+
+        $request->validated($request->all());
+
+        $qr = Qr::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'url' => $request->url,
+            'user_id' => Auth()->user()->id,
+            'location' => $request->location,
+            'qr_code' => $request->qr_code,
+            'image' =>$request->file('image')->store('upload/image/'),
+        ]);
+
+        return new QrResource($qr);
     }
 
     /**

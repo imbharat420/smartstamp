@@ -13,6 +13,7 @@ class Qr extends Model
         'user_id',
         'name',
         'description',
+        'url',
         'status',
         'qr_code',
         'image',

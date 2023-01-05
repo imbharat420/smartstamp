@@ -9,17 +9,19 @@ class Qr extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+   protected $fillable = [
         'user_id',
         'name',
         'description',
-        'location',
+        'status',
+        'qr_code',
         'image',
-        'is_lost',
+        'location',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+    
 }

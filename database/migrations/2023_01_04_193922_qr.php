@@ -18,9 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('description');
-            $table->string('location');
+            $table->string('qr_code');
+            $table->string('url');
+            $table->string('status')->default('active');
             $table->string('image');
-            $table->boolean('is_lost')->default('false');
+            $table->string('location')->default;
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

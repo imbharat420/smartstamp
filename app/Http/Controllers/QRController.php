@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Qr;
 
 class QrController extends Controller
 {
    function view(){
-        return response()->json("This is qr view function");
+      return Qr::all();
    } 
 }

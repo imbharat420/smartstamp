@@ -16,6 +16,8 @@ Route::post("/register",[AuthController::class,"register"]);
 
 //Protected Routes
 Route::group(["middleware"=>["auth:sanctum"]],function(){
-    Route::get("/qr",[QrController::class,"view"]);
+    // Route::get("/qr/create",[QrController::class,"create"]);
+    // Route::get("/qr",[QrController::class,"view"]);
+    Route::resource('qr', QrController::class);
     Route::post("/logout",[AuthController::class,"logout"]);
 });

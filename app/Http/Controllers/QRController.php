@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQrRequest;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use App\Models\Qr;
 use App\Http\Resources\QrResource;
@@ -11,6 +12,8 @@ use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class QrController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +68,13 @@ class QrController extends Controller
      */
     public function show(Qr $qr)
     {
+
+        if(Auth::user()->id != $qr->user_id){
+            return $this->error('', 'You are not authorized to view this QR code', 401);
+        }
+
         return new QrResource($qr);
+        // return $this->isNotAuthorized($qr) ? $this->isNotAuthorized($qr) : new QrResource($qr);
     }
 
     /**

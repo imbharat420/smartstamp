@@ -69,12 +69,7 @@ class QrController extends Controller
     public function show(Qr $qr)
     {
 
-        if(Auth::user()->id != $qr->user_id){
-            return $this->error('', 'You are not authorized to view this QR code', 401);
-        }
-
-        return new QrResource($qr);
-        // return $this->isNotAuthorized($qr) ? $this->isNotAuthorized($qr) : new QrResource($qr);
+       return $this->isNotAuthorized($qr) ? $this->isNotAuthorized($qr) : new QrResource($qr);
     }
 
     /**
@@ -95,9 +90,13 @@ class QrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Qr $qr)
     {
-        return "update";
+       
+
+        $qr->update($request->all());
+
+         return new QrResource($qr);
     }
 
     /**
@@ -106,8 +105,17 @@ class QrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Qr $qr)
     {
-        return "destroy";
+       
+        return  $this->isNotAuthorized($qr) ? $this->isNotAuthorized($qr) : $qr->delete();;
+    }
+
+
+    protected function isNotAuthorized($qr)
+    {
+        if(Auth::user()->id != $qr->user_id){
+            return $this->error('', 'You are not authorized to view this QR code', 401);
+        }
     }
 }
